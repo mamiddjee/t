@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Love You Sayang 💕</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  max-width: 330px;
+  z-index: 2;
+  animation: pop 1.2s ease;
+}
+
+@keyframes pop {
+  from {opacity:0; transform:scale(0.8);} 
+  to {opacity:1; transform:scale(1);} 
+}
+
+img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+h1 {
+  color: #ff4d6d;
+  font-size: 20px;
+}
+
+#text {
+  font-size: 14px;
+  color: #333;
+  min-height: 60px;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 25px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover { background:#ff1f4a; }
+
+.counter {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* LOVE FALL */
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall linear forwards;
+  color: #ff4d6d;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); opacity: 0; }
+}
+</style></head><body><div class="card">
+  <img src="foto.jpg" alt="Foto Sayang">
+  <h1>I Love U Sayangggg ❤️</h1>
+  <p id="text"></p><button onclick="toggleMusic()">▶ Play Music</button>
+
+  <div class="counter" id="counter"></div>  <audio id="music">
+    <source src="lagu.mp3" type="audio/mpeg">
+  </audio>
+</div><script>
+/* TYPEWRITER */
+const message = "i love u sayangggg,\nmeskipun kamu kaya orang ilang\ntapi aku tetep sayang 🤭";
+let i = 0;
+const textEl = document.getElementById("text");
+
+function typeText() {
+  if (i < message.length) {
+    textEl.innerHTML += message[i] === "\n" ? "<br>" : message[i];
+    i++;
+    setTimeout(typeText, 50);
+  }
+}
+typeText();
+
+/* MUSIC */
+const music = document.getElementById("music");
+const btn = document.querySelector("button");
+music.volume = 0;
+let playing = false;
+
+function toggleMusic() {
+  if (!playing) {
+    music.play();
+    btn.innerText = "⏸ Pause Music";
+    let v = 0;
+    const fade = setInterval(() => {
+      if (v < 1) { v += 0.05; music.volume = v; }
+      else clearInterval(fade);
+    }, 200);
+  } else {
+    music.pause();
+    btn.innerText = "▶ Play Music";
+  }
+  playing = !playing;
+}
+
+/* LOVE FALL */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 500);
+
+/* COUNTER JADIAN */
+const startDate = new Date("2025-08-28");
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("counter").innerText =
+    `❤️ Kita jadian ${days} hari ${hours} jam ${minutes} menit ${seconds} detik ❤️`;
+}
+setInterval(updateCounter, 1000);
+updateCounter();
+</script></body>
+</html>
